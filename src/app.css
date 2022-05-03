@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: Montserrat;
+    font-weight: normal;
+    src: url("/font/Montserrat-Regular.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: Montserrat;
+    font-weight: bold;
+    src: url("/font/Montserrat-Bold.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: OpenSans;
+    font-weight: normal;
+    src: url("/font/OpenSans-Regular.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: OpenSans;
+    font-weight: bold;
+    src: url("/font/OpenSans-Bold.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: 'Oswald-semibold';
+    src: url('/font/Oswald-SemiBold.woff2') format('woff2'), url('/font/Oswald-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oswald-bold';
+    src: url('/font/Oswald-Bold.woff2') format('woff2'), url('/font/Oswald-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* font-family: OpenSans, system-ui, -apple-system, /* Firefox supports this but not yet `system-ui`
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; */
+    font-size: 17px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ced9fa;
+    z-index: -5;
+}
+
+.splash {
+    padding: 2em;
+    margin: 0px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    min-height: 50vh;
+    align-items: center;
+}
+
+.titlebox {
+    color: white;
+    padding: 5em;
+    border-radius: 2em;
+    /* background-color: #07192f23;  */
+    text-align: center;
+    text-shadow: 0px 0px 1em #07192f;
+}
+
+.titlebox h1 {
+    font-size: 6em;
+}
+
+.titlebox h2 {
+    font-size: 4em;
+}
+
+.authbox {
+    /* background-color: rgba(245, 245, 245, 0.246);
+    padding: 5em; */
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    row-gap: 1em;
+    text-align: center;
+    min-width: 250px;
+}
+
+.authbox .enter {
+    font-size: 2em;
+    padding: 2em 1em 2em 1em;
+    border-radius: 0.5em;
+    background-color: rgba(245, 245, 245, 0.733);
+    cursor: pointer;
+}
+
+.authbox div:hover {
+    background-color: white;
+}
+
+.authbox .register {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 1em 1em 1em 1em;
+    border-radius: 0.5em;
+    background-color: rgba(245, 245, 245, 0.733);
+    cursor: pointer;
+}
+
+.werapper {
+    padding: 2em;
+}
+
+.wrapper h2 {
+    text-align: center;
+}
