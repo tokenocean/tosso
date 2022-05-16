@@ -29,7 +29,7 @@
       loading = true;
   
       try {
-        // await register(email, username, password);
+        await register(email, username, password);
         registered = true;
       } catch (e) {
         console.log(e);

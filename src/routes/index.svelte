@@ -15,7 +15,7 @@ import { browser } from '$app/env';
 
 onMount(async () => {
 	initBackground();
-	console.log("Buffer: ", Buffer);
+	console.log("Buffer index: ", Buffer);
 	});
 
 	async function enterVip() {

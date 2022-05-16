@@ -25,8 +25,11 @@ export async function post({ request, params, url }) {
         .url(`https://bid.nftglee.com/` + endpoint)
         .headers(newHeaders)
         .post(data)
-        .json();
-    // console.log(res);
+        .json()
+        .catch(e => {
+            console.log(e);
+        })
+        // console.log(res);
     console.log("done");
     return { status: 200, body: res };
 }

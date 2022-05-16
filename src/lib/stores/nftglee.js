@@ -11,10 +11,16 @@ export const funds = writable({});
 export const user = writable("user" || {});
 export const asset = writable("")
 
-export const token = writable(sessionStorage.getItem("token") || "");
-token.subscribe(val => sessionStorage.setItem("token", val));
-export const apiToken = writable(sessionStorage.getItem("apiToken") || "");
-apiToken.subscribe(val => sessionStorage.setItem("apiToken", val));
-export const username = writable(sessionStorage.getItem("username") || "");
-token.subscribe(val => sessionStorage.setItem("username", val));
-export const password = writable(sessionStorage.getItem("username") || "");
+export var token = {},
+    apiToken = {},
+    username = {},
+    password = {};
+if (browser) {
+    token = writable(sessionStorage.getItem("token") || "");
+    token.subscribe(val => sessionStorage.setItem("token", val));
+    apiToken = writable(sessionStorage.getItem("apiToken") || "");
+    apiToken.subscribe(val => sessionStorage.setItem("apiToken", val));
+    username = writable(sessionStorage.getItem("username") || "");
+    token.subscribe(val => sessionStorage.setItem("username", val));
+    password = writable(sessionStorage.getItem("username") || "");
+}

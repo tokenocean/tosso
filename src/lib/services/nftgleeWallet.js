@@ -5,6 +5,7 @@ import * as bip39 from "bip39";
 import { fromSeed, fromBase58 } from "bip32";
 import { networks, payments } from 'liquidjs-lib'
 
+
 const { mnemonicToSeedSync } = bip39;
 
 const network = networks[

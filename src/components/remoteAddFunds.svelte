@@ -56,7 +56,9 @@ import RemoteFund from './_remoteFund.svelte';
 			<div class="text-sm light-color">Balance</div>
 			<div class="flex mt-3">
 				<span class="text-4xl text-white mr-3">{balance}</span>
-				<span class="text-gray-400 mt-auto"> L-BTC </span>
+				<span class="text-gray-400 mt-auto"> L-BTC </span> 
+				<span class="text-4xl text-white mr-3 ml-2"> / {$funds["required"]}</span>
+				<span class="text-gray-400 mt-auto"> L-BTC required</span>
 			</div>
 		</div>
 		{#if pending}

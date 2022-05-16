@@ -79,9 +79,10 @@
 		width: 100%;
 		max-width: 800px;
 		min-height: 50vh;
+		height: fit-content;
 	}
 	div.content {
-		max-height: 50vh;
+		max-height: 90vh;
 		overflow: auto;
 	}
 </style>

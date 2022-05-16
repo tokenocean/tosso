@@ -4,7 +4,7 @@ import {get as g } from "svelte/store"
 import wretch from 'wretch';
 import { createWallet } from './nftgleeWallet';
 import { generateMnemonic } from "bip39";
-import wordlist from '$lib/wordlist'
+import wordlist from '../wordlist';
 
 export const api = wretch().url("/api/nftglee/api")
 
@@ -122,5 +122,5 @@ export const register = async(email, username, password) => {
                 password
             ),
         })
-        .res();
+        .res()
 };

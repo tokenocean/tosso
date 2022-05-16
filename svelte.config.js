@@ -3,6 +3,7 @@ import preprocess from 'svelte-preprocess';
 import autoprefixer from 'autoprefixer';
 
 import path from 'path';
+import shim from "@asoltys/vite-plugin-stream-shim";
 
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -16,24 +17,9 @@ const config = {
                     $icons: path.resolve('./src/icons')
                 }
             },
+            plugins: [shim()],
             server: {
-                proxy: {
-                    // '/nftglee': {
-                    //     target: 'https://bid.nftglee.com',
-                    //     rewrite: path => path.replace('/nftglee', ''),
-                    //     changeOrigin: true,
-                    //     secure: false,
-                    //     headers: {
-                    //         Referer: 'https://bid.nftglee.com/auth/login',
-                    //         'Content-Type': 'application/json',
-                    //         // Origin: 'https://bid.nftglee.com',
-                    //     }
-                    // },
-                    // '/api': {
-                    //     target: 'http://localhost:8091',
-                    //     rewrite: (path) => path.replace(/^\/api/, '')
-                    // }
-                }
+                proxy: {}
             },
         }
     },

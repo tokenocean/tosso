@@ -4,7 +4,7 @@ import {remoteModalOpen, remoteModalState} from "$lib/stores/nftglee";
 import RemoteLogin from "./remoteLogin.svelte";
 import RemoteInitWallet from "./remoteInitWallet.svelte";
 import RemoteRegister from "./remoteRegister.svelte";
-// import RemoteAddFunds from "./remoteAddFunds.svelte";
+import RemoteAddFunds from "./remoteAddFunds.svelte";
 import RemoteBuyTicket from "./remoteBuyTicket.svelte";
 import RemoteDone from "./remoteDone.svelte";
 import { onMount } from "svelte";
@@ -15,7 +15,7 @@ const stateComponents = {
     "login": {component: RemoteLogin, message: "Log In to NFTglee"},
     "register": {component: RemoteRegister, message: "New NFTglee account"},
     "wallet": {component: RemoteInitWallet, message: "Initialise wallet"},
-    // "fund": {component: RemoteAddFunds, message: "Add Funds to your wallet"},
+    "fund": {component: RemoteAddFunds, message: "Add Funds to your wallet"},
     "ticket": {component: RemoteBuyTicket, message: "Buy ticket"},
     "done": {component: RemoteDone, message: "All set!"},
 }
