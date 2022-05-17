@@ -2,7 +2,7 @@
     import Fa from "svelte-fa";
     import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
     import { page } from "$app/stores";
-    import { register } from "$lib/services/nftglee";
+    import { login, register } from "$lib/services/nftglee";
   
     let show;
     let username = "";
@@ -37,6 +37,10 @@
   
       loading = false;
     };
+
+    let signIn = async()=>{
+      login(username, password);
+    }
   
   </script>
   
@@ -54,7 +58,7 @@
           </p>
     
           <p class="mt-4">
-            <a href="/login" class="text-secondary">Continue to sign in page</a>
+            <button class="primary-btn w-full" on:click={signIn}>Sign In</button>
           </p>
         {:else}
           <h2 class="mb-8">Sign up</h2>

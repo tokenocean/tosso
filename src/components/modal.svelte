@@ -24,7 +24,7 @@
 {#if isOpen}
 	<div class={'modal ' + $$props.class} on:keydown={keydown} tabindex={0} autofocus>
 		<div class="backdrop" on:click={close}/>
-		<div class="content-wrapper">
+		<div class="content-wrapper flex flex-col">
 			<div class="header">
 				<slot name="header">
 					<!-- fallback -->
@@ -34,7 +34,7 @@
 				</slot>
 				<IconButton icon={faXmark} class="closeButton" on:click={close} />
 			</div>
-			<div class="content">
+			<div class="content grow">
 				<slot name="content" />
 			</div>
 
@@ -78,11 +78,11 @@
 		overflow: hidden;
 		width: 100%;
 		max-width: 800px;
-		min-height: 50vh;
 		height: fit-content;
 	}
 	div.content {
-		max-height: 90vh;
+		height: 85vh;
 		overflow: auto;
+		position: relative;
 	}
 </style>

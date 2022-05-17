@@ -1,23 +1,26 @@
 import { browser } from '$app/env';
-import { remoteModalState, isLoggedIn, isWalletInitialised, isAquiredTicket, token, username, user, apiToken, isEnoughFunds, funds } from '$lib/stores/nftglee'
+import { remoteModalState, isLoggedIn, isWalletInitialised, isAquiredTicket, token, username, user, apiToken, isEnoughFunds, funds, password } from '$lib/stores/nftglee'
 import {get as g } from "svelte/store"
 import wretch from 'wretch';
-import { createWallet } from './nftgleeWallet';
+import { createWallet, getMnemonic } from './nftgleeWallet';
 import { generateMnemonic } from "bip39";
 import wordlist from '../wordlist';
+import { updateUser } from '$lib/remoteQueries';
+import { retry } from 'wretch-middlewares';
 
 export const api = wretch().url("/api/nftglee/api")
 
-export async function login(email, password) {
+export async function login(email, pwd) {
     try {
         let res = await wretch()
             .polyfills({ fetch })
             .url(`/api/nftglee/auth/login`)
-            .post(JSON.stringify({ email, password }))
+            .post(JSON.stringify({ email, password: pwd }))
             .json();
         user.set(res.user);
         username.set(res.user.username);
         token.set(res.jwt_token);
+        password.set(pwd)
         isLoggedIn.set(true)
         isWalletInitialised.set(res.user.wallet_initialized);
         console.log('login succesfull: ', g(username));
@@ -35,6 +38,7 @@ export async function apiLogin(email, password) {
             .json();
         apiToken.set(res.jwt_token);
         console.log('api login: ', g(username));
+        return res.jwt_token;
     } catch (e) {
         console.error(e);
     }
@@ -54,7 +58,7 @@ export async function checkLogin() {
         .json();
     if (res)
         return true;
-    return true;
+    else throw Error("loginCheckFailed")
 }
 
 const LBTC = '6f0279e9ed041c3d710a9f57d0c02928416460c4b722ae3457a11eec381c526d';
@@ -125,3 +129,27 @@ export const register = async(email, username, password) => {
         })
         .res()
 };
+
+export const query = async(query, variables) => {
+    await apiLogin(g(username), g(password));
+    await checkLogin();
+    let { data, errors } = await api
+        .url("/v1/graphql")
+        .middlewares([retry({ maxAttempts: 2 })])
+        .auth(`Bearer ${g(token)}`)
+        .post({ query, variables })
+        .json();
+    if (errors) throw new Error(errors[0].message);
+    return data;
+};
+
+export const initWallet = async() => {
+    let params = createWallet();
+    params.wallet_initialized = true;
+
+    await query(updateUser, {
+        user: params,
+        id: g(user).id,
+    });
+    g(user).wallet_initialized = true;
+}
