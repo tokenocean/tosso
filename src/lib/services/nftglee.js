@@ -1,11 +1,11 @@
 import { browser } from '$app/env';
-import { remoteModalState, isLoggedIn, isWalletInitialised, isAquiredTicket, token, username, user, apiToken, isEnoughFunds, funds, password } from '$lib/stores/nftglee'
+import { remoteModalState, isLoggedIn, isWalletInitialised, isAquiredTicket, token, username, user, apiToken, isEnoughFunds, funds, password, aTicket } from '$lib/stores/nftglee'
 import {get as g } from "svelte/store"
 import wretch from 'wretch';
 import { createWallet, getMnemonic } from './nftgleeWallet';
 import { generateMnemonic } from "bip39";
 import wordlist from '../wordlist';
-import { updateUser } from '$lib/remoteQueries';
+import { getArtworks, updateUser } from '$lib/remoteQueries';
 import { retry } from 'wretch-middlewares';
 
 export const api = wretch().url("/api/nftglee/api")
@@ -61,9 +61,8 @@ export async function checkLogin() {
     else throw Error("loginCheckFailed")
 }
 
-const LBTC = '6f0279e9ed041c3d710a9f57d0c02928416460c4b722ae3457a11eec381c526d';
-///todo: get this dynamically
-const ticketPrice = 4000;
+const LBTC =
+    import.meta.env.VITE_BTC;
 
 export async function poolFunds() {
     let res = await wretch()
@@ -73,8 +72,8 @@ export async function poolFunds() {
         .get()
         .json();
     funds.set({
-            "required": ticketPrice,
-            "confirmed": res.confirmed[LBTC] || 0,
+            "required": g(aTicket)["list_price"] / 100000000,
+            "confirmed": res.confirmed[LBTC] / 100000000 || 0,
             "pending": res.pending[LBTC] || 0,
         })
         // console.log("funds: ", g(funds));
@@ -88,7 +87,26 @@ export async function checkFunds() {
     return false;
 }
 
+export async function findNewTicket() {
+    let res = await wretch()
+        .polyfills({ fetch })
+        .url(`/api/nftglee/artworks.json`)
+        .auth(`Bearer ${g(token)}`)
+        .post({})
+        .json();
+    let requi =
+        import.meta.env.VITE_TICKET_EDITION_ID
+    console.log("need: ", requi);
+    console.log("listed: ", res);
+    let found = res.artworks.filter(e => e.edition_id == requi)
+    console.log("found: ", found);
+    aTicket.set(found[0]);
+    // funds.update(f => ({...f, required: found[0].list_price }));
+}
+
 export async function watchChanges() {
+    if (!g(aTicket)["id"])
+        findNewTicket();
     isLoggedIn.subscribe(updateModalState);
     isWalletInitialised.subscribe(updateModalState);
     isAquiredTicket.subscribe(updateModalState);
@@ -152,4 +170,10 @@ export const initWallet = async() => {
         id: g(user).id,
     });
     g(user).wallet_initialized = true;
+}
+
+export const getArt = async() => {
+    return await query(getArtworks, {
+        id: g(user).id,
+    });
 }

@@ -1,5 +1,5 @@
 <script>
-import Modal from "./modal.svelte";
+import Modal from "$components/base/modal.svelte";
 import {remoteModalOpen, remoteModalState} from "$lib/stores/nftglee";
 import RemoteLogin from "./remoteLogin.svelte";
 import RemoteInitWallet from "./remoteInitWallet.svelte";

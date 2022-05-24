@@ -10,6 +10,7 @@ export const isEnoughFunds = writable(false);
 export const funds = writable({});
 export const user = writable("user" || {});
 export const asset = writable("")
+export const aTicket = writable({});
 
 export var token = {},
     apiToken = {},

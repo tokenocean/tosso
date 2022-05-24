@@ -1,11 +1,11 @@
 <script>
 	import { browser } from '$app/env';
 
-	import { checkFunds } from '$lib/services/nftglee';
-	import { funds } from '$lib/stores/nftglee';
+	import { checkFunds, updateModalState } from '$lib/services/nftglee';
+	import { funds, remoteModalState } from '$lib/stores/nftglee';
 	import { btc } from '$lib/utils';
 	import { onDestroy, onMount } from 'svelte';
-import RemoteFund from './_remoteFund.svelte';
+	import RemoteFund from './_remoteFund.svelte';
 
 	let x = 0;
 	let asset = btc;
@@ -13,10 +13,12 @@ import RemoteFund from './_remoteFund.svelte';
 	let balance;
 	let pending;
 
-	funds.subscribe(f => {if(f){
-		balance = f['confirmed'] || 0;
-		pending = f['pending'] || false;
-	}})
+	funds.subscribe((f) => {
+		if (f) {
+			balance = f['confirmed'] || 0;
+			pending = f['pending'] || false;
+		}
+	});
 
 	onMount(async () => {
 		if (browser) {
@@ -42,22 +44,22 @@ import RemoteFund from './_remoteFund.svelte';
 		withdrawing = false;
 	};
 
-	let toggleWithdrawing = () => {
-		withdrawing = !withdrawing;
-		funding = false;
-	};
+	let simulateFunding = ()=>{
+		funds.update(f=>({...f, confirmed: f.required+1}))
+		remoteModalState.set("ticket");
+	}
 
-	let assetLabel = (x) => "L-BTC";
+	let assetLabel = (x) => 'L-BTC';
 </script>
 
-<div class = "nftglee">
+<div class="nftglee">
 	<div class="dark-bg mb-2 pt-1 sm:rounded-lg">
 		<div class="m-6">
 			<div class="text-sm light-color">Balance</div>
 			<div class="flex mt-3">
 				<span class="text-4xl text-white mr-3">{balance}</span>
-				<span class="text-gray-400 mt-auto"> L-BTC </span> 
-				<span class="text-4xl text-white mr-3 ml-2"> / {$funds["required"]}</span>
+				<span class="text-gray-400 mt-auto"> L-BTC </span>
+				<span class="text-4xl text-white mr-3 ml-2"> / {$funds['required']}</span>
 				<span class="text-gray-400 mt-auto"> L-BTC required</span>
 			</div>
 		</div>
@@ -70,17 +72,9 @@ import RemoteFund from './_remoteFund.svelte';
 				</div>
 			</div>
 		{/if}
-		<!-- {#if $locked && $asset === btc}
-			<div class="m-6">
-				<div class="text-sm light-color">Locked in active transactions</div>
-				<div class="flex mt-3">
-					<span class="light-color mr-3">{val($asset, $locked)}</span>
-					<span class="text-gray-400">{assetLabel($asset)}</span>
-				</div>
-			</div>
-		{/if} -->
 		<div class="flex justify-between p-6 pt-2">
 			<button on:click={toggleFunding} class="button-trans-gray w-full mr-2">Fund</button>
+			<button on:click={simulateFunding} class="button-trans-gray w-full mr-2">Simulate(debug)</button>
 		</div>
 	</div>
 	<div>

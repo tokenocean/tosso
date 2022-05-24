@@ -123,7 +123,7 @@
   
   </script>
 
-  <link rel="stylesheet" href="remoseAddFunds.scss">
+  <link rel="stylesheet" href="remoteAddFunds.scss">
   
   {#if $user && funding}
     <div class="dark-bg mb-2 md:rounded-lg p-5">

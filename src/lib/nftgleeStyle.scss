@@ -1,6 +1,6 @@
 .nftglee button,
 .nftglee a {
-    cursor: none;
+    cursor: pointer;
     font-size: 18px;
     line-height: 32px;
     color: #2d2e32;
@@ -342,13 +342,13 @@
         will-change: transform;
     }
     .no-touch .edgtf-theme-cursor {
-        cursor: none !important;
+        // cursor: none !important;
     }
     .no-touch .edgtf-theme-cursor a,
     .no-touch .edgtf-theme-cursor .tp-bullet,
     .no-touch .edgtf-theme-cursor input,
     .no-touch .edgtf-theme-cursor button {
-        cursor: none !important;
+        // cursor: none !important;
     }
     #edgtf-theme-cursor.edgtf-visible {
         visibility: visible;

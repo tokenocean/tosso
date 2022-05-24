@@ -14,8 +14,6 @@ const serverKey = Buffer.from(
 
 
 export const getMnemonic = (mnemonic, pass) => {
-    console.log(bip39);
-
     if (!mnemonic && get(user)) mnemonic = get(user).mnemonic;
     if (!pass) pass = get(password);
 

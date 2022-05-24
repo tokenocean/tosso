@@ -3,7 +3,7 @@
 	import auth from '$lib/services/auth';
 	import { error, isAuthenticated, user, shouldLogout, auth0Client, a0ready} from '$lib/stores/auth';
 	import { remoteModalOpen, remoteModalState } from '$lib/stores/nftglee';
-	import RemoteModal from '$components/remoteModal.svelte';
+	import RemoteModal from '$components/remoteInterface/remoteModal.svelte';
 	import { updateModalState } from '$lib/services/nftglee';
 	import '$lib/nftgleeStyle.scss';
 

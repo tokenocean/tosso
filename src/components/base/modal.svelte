@@ -1,6 +1,6 @@
 <script>
 	import { compute_rest_props } from 'svelte/internal';
-	import IconButton from './iconButton.svelte';
+	import IconButton from '$components/base/iconButton.svelte';
 	import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 	export let isOpen = false;
