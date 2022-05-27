@@ -1,6 +1,6 @@
 <script>
 import Modal from "$components/base/modal.svelte";
-import {remoteModalOpen, remoteModalState} from "$lib/stores/nftglee";
+import {aTicket, remoteModalOpen, remoteModalState} from "$lib/stores/nftglee";
 import RemoteLogin from "./remoteLogin.svelte";
 import RemoteInitWallet from "./remoteInitWallet.svelte";
 import RemoteRegister from "./remoteRegister.svelte";
@@ -9,7 +9,7 @@ import RemoteBuyTicket from "./remoteBuyTicket.svelte";
 import RemoteDone from "./remoteDone.svelte";
 import { onMount } from "svelte";
 import { browser } from "$app/env";
-import { watchChanges } from "$lib/services/nftglee";
+import { findNewTicket, watchChanges } from "$lib/services/nftglee";
 
 const stateComponents = {
     "login": {component: RemoteLogin, message: "Log In to NFTglee"},
